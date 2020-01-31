@@ -10,15 +10,27 @@ class Database{
   protected $stmt;
 
   public function __construct(){
-    $this->dbh = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name, $this->db_user, $this->db_pass);
+    try {
+      $this->dbh = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name.';charset=utf8', $this->db_user, $this->db_pass);
+    } catch (PDOException $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+    
   }
 
   public function query($qry){
-    $this->stmt = $this->dbh->prepare($qry);
+    try {
+      $this->stmt = $this->dbh->prepare($qry);
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+    
   }
 
   public function bind($param, $value, $type = null){
-    if(if_null($type)){
+    if(is_null($type)){
       switch (true) {
         case is_bool($value):
           $type = PDO::PARAM_BOOL;
@@ -37,8 +49,23 @@ class Database{
   }
 
   public function execute(){
-    $this->stmt->execute();
-    return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+      $this->stmt->execute();
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+    
+  }
+
+  public function resultSet():array {
+    try {
+      $this->execute();
+      return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
   }
 
   public function lastInsertId(){
@@ -46,8 +73,13 @@ class Database{
   }
 
   public function single(){
-    $this->execute();
-    return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+      $this->execute();
+      return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
   }
 }
 

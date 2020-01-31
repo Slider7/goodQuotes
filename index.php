@@ -2,14 +2,19 @@
 <?php include './classes/database.php'; ?>
 <?php include './classes/quote.php'; ?>
 <?php 
-  $quoteObj = new Quotes();
-  $quotes = $quoteObj->index();
+  try {
+    $quoteObj = new Quote();
+    $quotes = $quoteObj->index();
+  } catch (Throwable $e) {
+    echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+    ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+  }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>GoodQuotes</title>
@@ -42,7 +47,7 @@
       <div class="row marketing">
         <div class="col-lg-12">
           <?php foreach($quotes as $q) : ?>
-          <h3><?php echo $q['text']; ?></h3>
+          <h3><?php echo $q['q_text']; ?></h3>
           <p><?php echo $q['creator']; ?></p>
           <?php endforeach; ?>
         </div>
