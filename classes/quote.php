@@ -27,8 +27,7 @@ class Quote extends Database{
       $this->stmt->bindValue(':creator', $creator, PDO::PARAM_STR); */
       $this->bind(':text', $text);
       $this->bind(':creator', $creator);
-      print_r($this->execute());
-      
+      $this->execute();
     } catch (Throwable $e) {
       echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
       ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
@@ -38,6 +37,46 @@ class Quote extends Database{
       //перенаправление
       header('Location: index.php');
     };
+  }
+
+  public function getSingle(int $id):array {
+    try {
+      $this->query('SELECT * FROM quotes WHERE q_id = :id');
+      $this->bind(':id', $id);
+      $row = $this->single();
+      return $row;
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+  }
+
+  public function update(int $id, string $text, string $creator)
+  {
+    try {
+      $this->query('UPDATE quotes SET q_text = :text, creator = :creator WHERE q_id = :id');
+      $this->bind(':id', $id);
+      $this->bind(':text', $text);
+      $this->bind(':creator', $creator);
+      $this->execute();
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+    
+    header('Location: index.php');
+  }
+
+  public function delete(int $id){
+    try {
+      $this->query('DELETE FROM quotes WHERE q_id = :id');
+      $this->bind(':id', $id);
+      $this->execute();
+    } catch (Throwable $e) {
+      echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
+      ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
+    }
+    header('Location: index.php');
   }
 
 }
