@@ -1,63 +1,53 @@
-<?php include './config.php'; ?>
-<?php include './classes/database.php'; ?>
-<?php include './classes/quote.php'; ?>
-<?php 
-  try {
-    $quoteObj = new Quote();
-    $quotes = $quoteObj->index();
-  } catch (Throwable $e) {
-    echo '<div class="alert alert-danger">'.get_class($e).' в строке '.$e->getLine() .
-    ' в файле '. $e->getFile() .': '.$e->getMessage().'</div>';
-  }
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang='ru'>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>GoodQuotes</title>
-  <link rel="stylesheet" href="./css/bootstrap.css">
-  <link rel="stylesheet" href="./css/style.css">
+<title>Простейший пример скрипта</title>
+<meta charset='utf-8'>
 </head>
-<body>
+<bcdy>
+<hl>Добрый день!</hl>
+<p>
+<?php
+	$dat = date("d.m y");
+	$tm = date("H:i:s");
+	echo "Текущая дата: $dat года<br />\n";
+	echo "Текущее время: $tm<br />\n";
+	echo "Квадраты и кубы 5ти первых чисел:<br />\n";
+	echo "<ul>\n";
+	for ($i = 1; $i <= 5; $i++) {
+		echo "<li>$i в квадрате = " . ($i * $i) . ", $i в кубе = " . ($i * $i * $i) . "</li>\n";
+	}
 
-<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="new.php">Новая цитата</a>
-            </li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">GoodQuotes</h3>
-      </div>
+	$a = [];
+	foreach (range(1, 10) as $r) {
+		array_push($a, $r*$r*$r);
+	}
+	print_r($a);
 
-      <div class="jumbotron">
-        <h1 class="display-3">Нашли цитату?</h1>
-        <p class="lead">Сохраняйте здесь Ваши любимые цитаты и читайте их ежедневно, улучшайтесь.</p>
-        <p><a class="btn btn-lg btn-success" href="new.php" role="button">Добавьте цитату сейчас</a></p>
-      </div>
+	echo("<br>");
 
-      <div class="row marketing">
-        <div class="col-lg-12">
-          <?php foreach($quotes as $q) : ?>
-          <h3><a href="edit.php?id=<?php echo $q['q_id']; ?>"><?php echo $q['q_text']; ?></a></h3>
-          <p><?php echo $q['creator']; ?></p>
-          <?php endforeach; ?>
-        </div>
-      </div>
+	$func = fn(int $num) => $num % 2 == 0 ? 2 : 1;
+	print_r(array_map($func, $a));
+	
+	class User{
+		private $id;
+		public $name;
 
-      <footer class="footer">
-        <p>&copy; 2020 GoodQuotes Inc.</p>
-      </footer>
+		function __construct($name=''){
+			$this->name = $name;
+			$this->id = random_int(0, 999999);
+		}
+		
+		function getId(){
+			return $this->id;
+		}
+	}
+	
+	$user1 = new User("Tester");
+	print_r($user1);
+	echo("<h2> name: $user1->name, id: {$user1->getId()} </h2>")
 
-    </div> <!-- /container -->
-  
-</body>
-</html>
+?>
+</ul>
+</p>
+</body></html>
