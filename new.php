@@ -62,7 +62,7 @@
       </div>
 
       <footer class="footer">
-        <p>&copy; 2020 GoodQuotes Inc.</p>
+        <p>&copy; 2021 GoodQuotes Inc.</p>
       </footer>
 
     </div> <!-- /container -->

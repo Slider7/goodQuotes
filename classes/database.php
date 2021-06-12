@@ -1,10 +1,10 @@
 <?php 
 
 class Database{
-  private $db_host = 'localhost';
-  private $db_user = 'root';
-  private $db_pass = 'mysql';
-  private $db_name = 'goodquotes';
+  private $db_host = 'sql107.epizy.com';
+  private $db_user = 'epiz_28817371';
+  private $db_pass = 'Uw9jgWs9Azrbw';
+  private $db_name = 'epiz_28817371_goodquotes';
 
   protected $dbh;
   protected $stmt;

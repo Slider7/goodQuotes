@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills float-right">
@@ -63,7 +63,7 @@
         <h3 class="text-muted">GoodQuotes</h3>
       </div>
 
-      <div class="row marketing">
+      <div class="row">
         <div class="col-lg-12">
           <h2 class='page-header'>Редактирование цитаты
             <form class='pull-right' method='POST' action="edit.php?id=<?php echo $_GET['id']; ?>">
@@ -73,7 +73,7 @@
           <form method='POST' action="edit.php?id=<?php echo $_GET['id']; ?>">
             <div class="form-group">
               <label for='text'>Текст цитаты</label>
-              <input type='text' name='text' class='form-control' placeholder='Введите текст' required value ="<?php echo $quote['q_text']; ?>" >
+              <input type='text' name='text' class='form-control' placeholder='Введите текст' required value ="<?php echo $quote['text']; ?>" >
             </div>
             <div class="form-group">
               <label for='creator'>Автор цитаты</label>
@@ -85,10 +85,10 @@
       </div>
 
       <footer class="footer">
-        <p>&copy; 2020 GoodQuotes Inc.</p>
+        <p>&copy; 2021 GoodQuotes Inc.</p>
       </footer>
 
-    </div> <!-- /container -->
+    </div> <!-- container -->
   
 </body>
 </html>

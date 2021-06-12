@@ -21,7 +21,7 @@ class Quote extends Database{
 
   public function add(string $text, string $creator){
     try {
-      $this->query('INSERT INTO quotes(q_text, creator) VALUES(:text, :creator)');
+      $this->query('INSERT INTO quotes(text, creator) VALUES(:text, :creator)');
     /*      
       $this->stmt->bindValue(':text', $text, PDO::PARAM_STR);
       $this->stmt->bindValue(':creator', $creator, PDO::PARAM_STR); */
@@ -41,7 +41,7 @@ class Quote extends Database{
 
   public function getSingle(int $id):array {
     try {
-      $this->query('SELECT * FROM quotes WHERE q_id = :id');
+      $this->query('SELECT * FROM quotes WHERE id = :id');
       $this->bind(':id', $id);
       $row = $this->single();
       return $row;
@@ -54,7 +54,7 @@ class Quote extends Database{
   public function update(int $id, string $text, string $creator)
   {
     try {
-      $this->query('UPDATE quotes SET q_text = :text, creator = :creator WHERE q_id = :id');
+      $this->query('UPDATE quotes SET text = :text, creator = :creator WHERE id = :id');
       $this->bind(':id', $id);
       $this->bind(':text', $text);
       $this->bind(':creator', $creator);
@@ -69,7 +69,7 @@ class Quote extends Database{
 
   public function delete(int $id){
     try {
-      $this->query('DELETE FROM quotes WHERE q_id = :id');
+      $this->query('DELETE FROM quotes WHERE id = :id');
       $this->bind(':id', $id);
       $this->execute();
     } catch (Throwable $e) {
