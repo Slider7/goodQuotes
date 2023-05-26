@@ -1,6 +1,13 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Авто-сборка тестовой ветки
+run-name: |
+  ${{ github.ref_name }} — ${{ github.workflow }}: ${{ github.event.head_commit.message }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+on:
+  push:
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
